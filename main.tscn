@@ -1,0 +1,145 @@
+[gd_scene load_steps=10 format=3 uid="uid://6lhe7c82egsu"]
+
+[ext_resource type="Script" uid="uid://cvqsonkshywl6" path="res://player_spawner.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://b2u4py5sfu87j" path="res://blend_files/scenario_battlee.blend" id="1_ig7tw"]
+[ext_resource type="Resource" uid="uid://c1eltu3jsu50n" path="res://mage.tres" id="2_1bvp3"]
+[ext_resource type="Resource" uid="uid://bdclwc5x17xjp" path="res://warrior.tres" id="3_lquwl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
+sky_top_color = Color(0.202078, 0.565926, 1, 1)
+sky_horizon_color = Color(1.03613, 1.05977, 1.06141, 1)
+ground_bottom_color = Color(0.696787, 0.427496, 0, 1)
+ground_horizon_color = Color(1.03613, 1.05977, 1.06141, 1)
+sun_curve = 0.000475929
+
+[sub_resource type="Sky" id="Sky_h2yge"]
+sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+background_mode = 2
+sky = SubResource("Sky_h2yge")
+tonemap_mode = 2
+ssao_enabled = true
+ssao_radius = 5.12
+glow_enabled = true
+fog_enabled = true
+fog_aerial_perspective = 1.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0342
+volumetric_fog_anisotropy = 0.6
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ig7tw"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 20.47
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ig7tw"]
+
+[node name="MainScene" type="Node3D"]
+
+[node name="PlayerSpawner" type="Node" parent="."]
+script = ExtResource("1_0xm2m")
+mage = ExtResource("2_1bvp3")
+warrior = ExtResource("3_lquwl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.935493, 0.152675, -0.318657, 5.89065e-09, 0.901833, 0.432086, 0.353344, 0.404213, -0.843658, 0, 0, 0)
+light_color = Color(1, 0.792157, 0.384314, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1bvp3")
+
+[node name="BattleCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.940163, 0.340724, 0, -0.340724, 0.940163, -0.18044, 4.36249, 10.7733)
+attributes = SubResource("CameraAttributesPractical_ig7tw")
+
+[node name="Scenario" type="Node3D" parent="."]
+
+[node name="Terrain" type="Node3D" parent="Scenario"]
+
+[node name="scenario_battlee" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+
+[node name="scenario_battlee4" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16.5668)
+
+[node name="scenario_battlee6" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(0.996189, 0.0872253, 0, -0.0872253, 0.996189, 0, 0, 0, 1, -15.3602, 1.46465, -16.5668)
+
+[node name="scenario_battlee7" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.984629, -0.0588327, -0.164453, -0.0603909, 0.998165, 0.0044873, 0.163887, 0.0143498, -0.986375, 17.7092, 1.46465, -16.1423)
+
+[node name="scenario_battlee5" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 0.988076, 0.153969, 0, -0.153969, 0.988076, 0, 0, 12.6068)
+
+[node name="scenario_battlee9" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(0.557614, 0.0785771, -0.826373, -0.0382366, 0.996884, 0.0689895, 0.829219, -0.00687182, 0.558881, -12.9518, 1.51039, 12.6068)
+
+[node name="scenario_battlee8" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(0.889273, -0.108511, 0.444319, 0, 0.97145, 0.237245, -0.457377, -0.210976, 0.863884, 18.4214, 0.681934, 12.6068)
+
+[node name="scenario_battlee2" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(0.99718, 0.0750483, 0, -0.0750483, 0.99718, 0, 0, 0, 1, -11.5541, 1.0483, 0)
+
+[node name="scenario_battlee3" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.9958, -0.0749445, 0.0525799, -0.0750483, 0.99718, 0, -0.0524316, -0.00394603, -0.998617, 18.1535, 1.0483, 0.386487)
+
+[node name="scenario_battlee10" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -35.5477)
+
+[node name="scenario_battlee11" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -52.1145)
+
+[node name="scenario_battlee12" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(0.996189, 0.0872253, 0, -0.0872253, 0.996189, 0, 0, 0, 1, -15.3602, 1.46465, -52.1145)
+
+[node name="scenario_battlee13" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.982615, -0.0860368, -0.164514, -0.0872253, 0.996189, 0, 0.163887, 0.0143498, -0.986375, 17.7092, 1.46465, -51.69)
+
+[node name="scenario_battlee14" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 0.988076, 0.153969, 0, -0.153969, 0.988076, 0, 0, -22.941)
+
+[node name="scenario_battlee15" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(0.557614, 0.0785771, -0.826373, -0.0382366, 0.996884, 0.0689895, 0.829219, -0.00687182, 0.558881, -12.9518, 1.51039, -22.941)
+
+[node name="scenario_battlee16" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(0.889273, -0.108511, 0.444319, 0.0491663, 0.9885, 0.143006, -0.454727, -0.105326, 0.884381, 18.4214, 0.681934, -22.941)
+
+[node name="scenario_battlee17" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(0.99718, 0.0750483, 0, -0.0750483, 0.99718, 0, 0, 0, 1, -11.5541, 1.0483, -35.5477)
+
+[node name="scenario_battlee18" parent="Scenario/Terrain" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.9958, -0.0749445, 0.0525799, -0.0750483, 0.99718, 0, -0.0524316, -0.00394603, -0.998617, 18.1535, 1.0483, -35.1612)
+
+[node name="PlayerAPositions" type="Node3D" parent="Scenario"]
+
+[node name="A" type="MeshInstance3D" parent="Scenario/PlayerAPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.81691, 4.392)
+mesh = SubResource("CapsuleMesh_ig7tw")
+skeleton = NodePath("../..")
+
+[node name="B" type="MeshInstance3D" parent="Scenario/PlayerAPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.325, 4.392)
+mesh = SubResource("CapsuleMesh_ig7tw")
+skeleton = NodePath("../..")
+
+[node name="C" type="MeshInstance3D" parent="Scenario/PlayerAPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.325, 4.392)
+mesh = SubResource("CapsuleMesh_ig7tw")
+skeleton = NodePath("../..")
+
+[node name="PlayerBPositions" type="Node3D" parent="Scenario"]
+
+[node name="A" type="MeshInstance3D" parent="Scenario/PlayerBPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.92865, -5.841)
+mesh = SubResource("CapsuleMesh_ig7tw")
+skeleton = NodePath("../..")
+
+[node name="B" type="MeshInstance3D" parent="Scenario/PlayerBPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.325, -5.841)
+mesh = SubResource("CapsuleMesh_ig7tw")
+skeleton = NodePath("../..")
+
+[node name="C" type="MeshInstance3D" parent="Scenario/PlayerBPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.325, -5.841)
+mesh = SubResource("CapsuleMesh_ig7tw")
+skeleton = NodePath("../..")

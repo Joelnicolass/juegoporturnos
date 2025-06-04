@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=2 format=3 uid="uid://bdclwc5x17xjp"]
+
+[ext_resource type="Script" uid="uid://d13vhcj7exljj" path="res://character_data.gd" id="1_8ji7p"]
+
+[resource]
+script = ExtResource("1_8ji7p")
+name = "Warrior"
+description = "A character in the game."
+skill_points = 5
+health = 200
+attack = 50
+defense = 50
+speed = 30
+magic = 10
+luck = 50
+experience = 0
+critical_chance = 50.0
+level = 1
+color = Color(1, 0, 0.227451, 1)
+metadata/_custom_type_script = "uid://d13vhcj7exljj"
