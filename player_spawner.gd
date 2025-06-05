@@ -51,3 +51,7 @@ func spawn_player_b_characters():
 	_spawn_player_character(mage, player_b_position_a.global_transform.origin, "Player B Mage")
 	_spawn_player_character(warrior, player_b_position_b.global_transform.origin, "Player B Warrior")
 	_spawn_player_character(mage, player_b_position_c.global_transform.origin, "Player B Mage 2")
+
+
+func _on_next_turn_pressed() -> void:
+	TurnManager.turn_ended.emit(TurnManager._turn_order[TurnManager._current_turn_index])

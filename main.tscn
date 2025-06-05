@@ -143,3 +143,27 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.325, -5.841)
 mesh = SubResource("CapsuleMesh_ig7tw")
 skeleton = NodePath("../..")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = -12.0
+offset_right = 19.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NextTurn" type="Button" parent="UI/Control"]
+layout_mode = 2
+offset_left = 457.0
+offset_top = 904.0
+offset_right = 866.0
+offset_bottom = 986.0
+text = "SIGUIENTE TURNO"
+
+[connection signal="pressed" from="UI/Control/NextTurn" to="PlayerSpawner" method="_on_next_turn_pressed"]
