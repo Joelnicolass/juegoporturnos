@@ -12,6 +12,9 @@ extends Node
 @onready var player_b_position_b: MeshInstance3D = get_owner().get_node('Scenario/PlayerBPositions/B')
 @onready var player_b_position_c: MeshInstance3D = get_owner().get_node('Scenario/PlayerBPositions/C')
 
+@onready var cameraA: Camera3D = get_owner().get_node('Scenario/CameraA')
+@onready var cameraB: Camera3D = get_owner().get_node('Scenario/CameraB')
+
 
 func _ready():
 	_hide_debug_positions()
@@ -53,3 +56,10 @@ func spawn_player_b_characters():
 
 func _on_next_turn_pressed() -> void:
 	TurnManager.turn_ended.emit(TurnManager._turn_order[TurnManager._current_turn_index])
+	_change_camera()
+
+func _change_camera() -> void:
+	if cameraA.current:
+		CameraTransition.transition_camera3D(cameraA, cameraB)
+	else:
+		CameraTransition.transition_camera3D(cameraB, cameraA)

@@ -28,11 +28,11 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.0342
 volumetric_fog_anisotropy = 0.6
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ig7tw"]
+
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ig7tw"]
 dof_blur_far_enabled = true
 dof_blur_far_distance = 20.47
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ig7tw"]
 
 [node name="MainScene" type="Node3D"]
 
@@ -48,10 +48,6 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1bvp3")
-
-[node name="BattleCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.940163, 0.340724, 0, -0.340724, 0.940163, 2.15339, 3.20425, 7.18599)
-attributes = SubResource("CameraAttributesPractical_ig7tw")
 
 [node name="Scenario" type="Node3D" parent="."]
 
@@ -143,6 +139,13 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.325, -5.841)
 mesh = SubResource("CapsuleMesh_ig7tw")
 skeleton = NodePath("../..")
+
+[node name="CameraA" type="Camera3D" parent="Scenario"]
+transform = Transform3D(1, 0, 0, 0, 0.940163, 0.340724, 0, -0.340724, 0.940163, 2.15339, 3.20425, 7.18599)
+attributes = SubResource("CameraAttributesPractical_ig7tw")
+
+[node name="CameraB" type="Camera3D" parent="Scenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75149, 10.101)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
