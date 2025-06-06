@@ -1,7 +1,7 @@
 extends Node3D
 class_name Character
 
-@export var character_data: CharacterData
+@export var character_data: CharacterClassData
 
 @export var name_character: String = "Character"
 @export var name_class: String = "Class"
@@ -31,22 +31,22 @@ func _on_turn_started(character: Character):
 		_change_color(color)
 
 
-func initialize_character(data: CharacterData, name_char: String):
-	if data:
+func initialize_character(class_data: CharacterClassData, name_char: String):
+	if class_data:
 		name_character = name_char
-		name_class = data.name
-		description = data.description
-		skill_points = data.skill_points
-		health = data.health
-		attack = data.attack
-		defense = data.defense
-		speed = data.speed
-		magic = data.magic
-		luck = data.luck
-		experience = data.experience
-		critical_chance = data.critical_chance
-		level = data.level
-		color = data.color
+		name_class = class_data.name
+		description = class_data.description
+		skill_points = class_data.skill_points
+		health = class_data.health
+		attack = class_data.attack
+		defense = class_data.defense
+		speed = class_data.speed
+		magic = class_data.magic
+		luck = class_data.luck
+		experience = class_data.experience
+		critical_chance = class_data.critical_chance
+		level = class_data.level
+		color = class_data.color
 		_change_color(color)
 
 
@@ -58,5 +58,5 @@ func _change_color(new_color: Color):
 		mesh_instance.set_surface_override_material(0, material)
 
 
-func register_character_in_turn_manager():
+func init_signals():
 	TurnManager.turn_started.connect(_on_turn_started)

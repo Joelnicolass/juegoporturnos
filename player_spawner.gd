@@ -1,7 +1,7 @@
 extends Node
 
-@export var mage: CharacterData
-@export var warrior: CharacterData
+@export var mage: CharacterClassData
+@export var warrior: CharacterClassData
 
 @onready var character_scene: PackedScene = preload("res://character.tscn")
 
@@ -17,19 +17,17 @@ func _ready():
 	_hide_debug_positions()
 	spawn_player_a_characters()
 	spawn_player_b_characters()
-	TurnManager.start_battle()
+	TurnManager.start_battle.emit()
 
 
-func _spawn_player_character(character_data: CharacterData, position: Vector3, name_char: String):
+func _spawn_player_character(character_class_data: CharacterClassData, position: Vector3, name_char: String):
 	var character_instance: Node3D = character_scene.instantiate()
 	if character_instance is Character:
-		character_instance.initialize_character(character_data, name_char)
+		character_instance.initialize_character(character_class_data, name_char)
 		character_instance.transform.origin = position - Vector3(0, 1, 0)
 		call_deferred("add_child", character_instance)
 		TurnManager.register_character.emit(character_instance)
-		character_instance.register_character_in_turn_manager()
-	else:
-		push_error("The instantiated scene is not a Character instance.")
+		character_instance.init_signals()
 
 
 func _hide_debug_positions():

@@ -1,5 +1,6 @@
 extends Node
 
+signal start_battle()
 signal register_character(character: Character)
 signal unregister_character(character: Character)
 signal clean_battle()
@@ -13,6 +14,7 @@ var _current_turn_index: int = 0
 
 
 func _ready():
+    start_battle.connect(_on_start_battle)
     register_character.connect(_on_register_character)
     unregister_character.connect(_on_unregister_character)
     clean_battle.connect(_on_clean_battle)
@@ -37,7 +39,7 @@ func _on_clean_battle():
     _current_turn_index = 0
 
 
-func start_battle():
+func _on_start_battle():
     _turn_order = _battle_characters.duplicate()
     _sort_turn_order()
     _current_turn_index = 0

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cvqsonkshywl6" path="res://player_spawner.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://b2u4py5sfu87j" path="res://blend_files/scenario_battlee.blend" id="1_ig7tw"]
-[ext_resource type="Resource" uid="uid://c1eltu3jsu50n" path="res://mage.tres" id="2_1bvp3"]
-[ext_resource type="Resource" uid="uid://bdclwc5x17xjp" path="res://warrior.tres" id="3_lquwl"]
+[ext_resource type="Resource" uid="uid://b5i5q33eji5g8" path="res://mage.tres" id="2_1bvp3"]
+[ext_resource type="Resource" uid="uid://b7rcbqlmtryns" path="res://warrior.tres" id="3_lquwl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_top_color = Color(0.202078, 0.565926, 1, 1)
@@ -50,7 +50,7 @@ shadow_enabled = true
 environment = SubResource("Environment_1bvp3")
 
 [node name="BattleCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.940163, 0.340724, 0, -0.340724, 0.940163, -0.18044, 4.36249, 10.7733)
+transform = Transform3D(1, 0, 0, 0, 0.940163, 0.340724, 0, -0.340724, 0.940163, 2.15339, 3.20425, 7.18599)
 attributes = SubResource("CameraAttributesPractical_ig7tw")
 
 [node name="Scenario" type="Node3D" parent="."]

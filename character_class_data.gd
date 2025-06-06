@@ -1,10 +1,10 @@
 extends Resource
-class_name CharacterData
+class_name CharacterClassData
 
 # nombre del personaje
-@export var name: String = "Character"
+@export var name: String = "Character class"
 # descripción del personaje
-@export var description: String = "A character in the game."
+@export var description: String = "A character class in the game."
 # puntos para poder atacar
 @export var skill_points: int = 0
 # salud del personaje
