@@ -21,7 +21,6 @@ enum Team {
 	ENEMY
 }
 
-
 func _ready():
 	CameraTransition.camera_started_transition.connect(_on_started_camera_transition)
 	CameraTransition.camera_finished_transition.connect(_on_finished_camera_transition)

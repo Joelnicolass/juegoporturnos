@@ -3,6 +3,11 @@ class_name Character
 
 @export var character_class_data: CharacterClassData
 
+enum Team {
+	PLAYER,
+	ENEMY
+}
+
 var _character_data: Dictionary = {
 	'name': null,
 	'team': null,
@@ -29,14 +34,60 @@ var _is_turn: bool = false
 
 # --- HANDLERS --- #
 
+var enemies: Array[Character] = []
+var _is_attacking: bool = false
+var _index_enemy_attack: int = 0
+
+
 func _input(event):
 	if not _is_turn: return
+	if _character_data['team'] != str(Team.PLAYER): return
 
-	if event is InputEventKey and event.is_pressed() and event.keycode == KEY_A:
+	if event is InputEventKey and event.is_pressed() and event.keycode == KEY_A and not _is_attacking:
+		_is_attacking = true
+
+		enemies = TurnManager.get_battle_characters().filter(func(character: Character) -> bool:
+			return character.get_team() != str(Team.PLAYER)
+		)
+
 		CameraTransition.transition_camera3D(
 			get_node("Camera3D"),
-			TurnManager.get_next_turn_character().get_node("CameraTargetAttack")
+			enemies[_index_enemy_attack].get_node("CameraTargetAttack"),
+			1.0
 		)
+
+	if event is InputEventKey and event.is_pressed() and event.keycode == KEY_LEFT and not CameraTransition.transitioning:
+		if _is_attacking and enemies.size() > 0:
+			var next_index: int = _index_enemy_attack - 1
+			if next_index >= enemies.size() or next_index < 0:
+				next_index = enemies.size() - 1
+			_index_enemy_attack = next_index
+
+			CameraTransition.transition_camera3D(
+				CameraTransition.get_current_camera(),
+				enemies[_index_enemy_attack].get_node("CameraTargetAttack"),
+			)
+
+	if event is InputEventKey and event.is_pressed() and event.keycode == KEY_RIGHT and not CameraTransition.transitioning:
+		if _is_attacking and enemies.size() > 0:
+			var next_index: int = _index_enemy_attack + 1
+			if next_index >= enemies.size():
+				next_index = 0
+			_index_enemy_attack = next_index
+
+			CameraTransition.transition_camera3D(
+				CameraTransition.get_current_camera(),
+				enemies[_index_enemy_attack].get_node("CameraTargetAttack"),
+			)
+
+	if event is InputEventKey and event.is_pressed() and event.keycode == KEY_ESCAPE and _is_attacking:
+		_is_attacking = false
+		CameraTransition.transition_camera3D(
+			CameraTransition.get_current_camera(),
+			get_node("Camera3D"),
+			1.0
+		)
+		_index_enemy_attack = 0
 
 
 # --- PUBLIC METHODS --- #
@@ -76,6 +127,7 @@ func get_team() -> String:
 
 func _init_signals():
 	TurnManager.turn_started.connect(_on_turn_started)
+	TurnManager.turn_ended.connect(_on_turn_ended)
 
 	
 func _on_turn_started(character: Character):
@@ -86,6 +138,13 @@ func _on_turn_started(character: Character):
 	else:
 		_is_turn = false
 		_change_color(_character_data['class_data']['color'])
+
+
+func _on_turn_ended(_character: Character):
+	if not _is_turn:
+		_is_attacking = false
+		_index_enemy_attack = 0
+		enemies.clear()
 
 
 # --- UTIlS --- #
