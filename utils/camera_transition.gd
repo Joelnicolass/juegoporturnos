@@ -36,6 +36,19 @@ func transition_camera3D(from: Camera3D, to: Camera3D, duration: float = 0.5) ->
 	tween.tween_property(camera3D, "global_transform", to.global_transform, duration).from(camera3D.global_transform)
 	tween.tween_property(camera3D, "fov", to.fov, duration).from(camera3D.fov)
 
+	var camera_atr = camera3D.attributes
+	var to_atr = to.attributes
+	print(camera_atr.get('dof_blur_far_enabled'))
+	print(to_atr.get('dof_blur_far_enabled'))
+
+	# TODO -> Implement a system to manage the depth of field blur.
+	if to_atr.get('dof_blur_far_enabled'):
+		camera3D.attributes.set('dof_blur_far_enabled', true)
+		camera3D.attributes.set('dof_blur_far_distance', 200.0)
+
+		tween.tween_property(camera3D.attributes, "dof_blur_far_distance", to.attributes.get('dof_blur_far_distance'), duration).from(camera3D.attributes.get('dof_blur_far_distance'))
+		
+
 	await tween.finished
 
 	to.current = true

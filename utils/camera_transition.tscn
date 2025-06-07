@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0n7ydu8c6snv"]
+[gd_scene load_steps=3 format=3 uid="uid://b0n7ydu8c6snv"]
 
 [ext_resource type="Script" uid="uid://dwlxo1fd1yboq" path="res://utils/camera_transition.gd" id="1_ereko"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ereko"]
 
 [node name="CameraTransition" type="Node"]
 script = ExtResource("1_ereko")
 
 [node name="Camera" type="Camera3D" parent="."]
+attributes = SubResource("CameraAttributesPractical_ereko")
