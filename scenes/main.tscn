@@ -152,10 +152,10 @@ grow_vertical = 2
 
 [node name="NextTurn" type="Button" parent="UI/Control"]
 layout_mode = 2
-offset_left = 457.0
-offset_top = 904.0
-offset_right = 866.0
-offset_bottom = 986.0
+offset_left = 1379.0
+offset_top = 918.0
+offset_right = 1788.0
+offset_bottom = 1000.0
 text = "SIGUIENTE TURNO"
 
 [connection signal="pressed" from="UI/Control/NextTurn" to="PlayerSpawner" method="_on_next_turn_pressed"]
