@@ -20,11 +20,9 @@ func transition_camera3D(from: Camera3D, to: Camera3D, duration: float = 0.5) ->
 	
 	camera3D.fov = from.fov
 	camera3D.cull_mask = from.cull_mask
-	
 	camera3D.global_transform = from.global_transform
 	
 	camera3D.current = true
-	
 	transitioning = true
 
 	var tween = create_tween()
