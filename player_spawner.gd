@@ -12,22 +12,38 @@ extends Node
 @onready var player_b_position_b: MeshInstance3D = get_owner().get_node('Scenario/PlayerBPositions/B')
 @onready var player_b_position_c: MeshInstance3D = get_owner().get_node('Scenario/PlayerBPositions/C')
 
-@onready var cameraA: Camera3D = get_owner().get_node('Scenario/CameraA')
-@onready var cameraB: Camera3D = get_owner().get_node('Scenario/CameraB')
+@onready var btn_next_turn: Button = get_owner().get_node('UI/Control/NextTurn')
 
 
 func _ready():
+	CameraTransition.camera_started_transition.connect(_on_started_camera_transition)
+	CameraTransition.camera_finished_transition.connect(_on_finished_camera_transition)
+	TurnManager.start_battle.connect(_on_start_battle)
 	_hide_debug_positions()
 	spawn_player_a_characters()
 	spawn_player_b_characters()
 	TurnManager.start_battle.emit()
 
 
-func _spawn_player_character(character_class_data: CharacterClassData, position: Vector3, name_char: String):
+func _on_started_camera_transition():
+	btn_next_turn.disabled = true
+	
+	
+func _on_finished_camera_transition():
+	btn_next_turn.disabled = false
+
+
+func _on_start_battle():
+	var initial_character = TurnManager.get_current_turn_character()
+	initial_character.get_node("Camera3D").current = true
+
+
+func _spawn_player_character(name_char: String, character_class_data: CharacterClassData, position: Vector3, rotation: Vector3):
 	var character_instance: Node3D = character_scene.instantiate()
 	if character_instance is Character:
 		character_instance.initialize_character(character_class_data, name_char)
 		character_instance.transform.origin = position - Vector3(0, 1, 0)
+		character_instance.rotation = rotation
 		call_deferred("add_child", character_instance)
 		TurnManager.register_character.emit(character_instance)
 		character_instance.init_signals()
@@ -43,23 +59,28 @@ func _hide_debug_positions():
 
 
 func spawn_player_a_characters():
-	_spawn_player_character(mage, player_a_position_a.global_transform.origin, "Player A Mage")
-	_spawn_player_character(warrior, player_a_position_b.global_transform.origin, "Player A Warrior")
-	_spawn_player_character(mage, player_a_position_c.global_transform.origin, "Player A Mage 2")
+	_spawn_player_character("Player A Mage", mage, player_a_position_a.global_transform.origin, player_a_position_a.global_transform.basis.get_euler())
+	_spawn_player_character("Player A Warrior", warrior, player_a_position_b.global_transform.origin, player_a_position_b.global_transform.basis.get_euler())
+	_spawn_player_character("Player A Mage 2", mage, player_a_position_c.global_transform.origin, player_a_position_c.global_transform.basis.get_euler())
 
 
 func spawn_player_b_characters():
-	_spawn_player_character(mage, player_b_position_a.global_transform.origin, "Player B Mage")
-	_spawn_player_character(warrior, player_b_position_b.global_transform.origin, "Player B Warrior")
-	_spawn_player_character(mage, player_b_position_c.global_transform.origin, "Player B Mage 2")
+	_spawn_player_character("Player B Mage", mage, player_b_position_a.global_transform.origin, player_b_position_a.global_transform.basis.get_euler())
+	_spawn_player_character("Player B Warrior", warrior, player_b_position_b.global_transform.origin, player_b_position_b.global_transform.basis.get_euler())
+	_spawn_player_character("Player B Mage 2", mage, player_b_position_c.global_transform.origin, player_b_position_c.global_transform.basis.get_euler())
 
 
 func _on_next_turn_pressed() -> void:
+	_change_camera(
+		TurnManager.get_current_turn_character(),
+		TurnManager.get_next_turn_character()
+	)
 	TurnManager.turn_ended.emit(TurnManager._turn_order[TurnManager._current_turn_index])
-	_change_camera()
 
-func _change_camera() -> void:
-	if cameraA.current:
-		CameraTransition.transition_camera3D(cameraA, cameraB)
-	else:
-		CameraTransition.transition_camera3D(cameraB, cameraA)
+
+func _change_camera(from_character: Character, to_character: Character) -> void:
+	CameraTransition.transition_camera3D(
+		from_character.get_node("Camera3D"),
+		to_character.get_node("Camera3D"),
+		1.0
+	)

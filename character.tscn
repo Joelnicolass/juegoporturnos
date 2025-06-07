@@ -13,3 +13,6 @@ script = ExtResource("1_glpr6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02856, 0)
 mesh = SubResource("CapsuleMesh_pjt0s")
 surface_material_override/0 = SubResource("StandardMaterial3D_wa5vi")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.98867, 0.150105, 0, -0.150105, 0.98867, 1.7443, 2.08042, 3.09482)

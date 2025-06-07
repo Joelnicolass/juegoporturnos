@@ -1,54 +1,47 @@
 extends Node3D
 class_name Character
 
-@export var character_data: CharacterClassData
+@export var character_class_data: CharacterClassData
 
-@export var name_character: String = "Character"
-@export var name_class: String = "Class"
-@export var description: String = "A character in the game."
-@export var skill_points: int = 0
-@export var health: int = 0
-@export var attack: int = 0
-@export var defense: int = 0
-@export var speed: int = 0
-@export var magic: int = 0
-@export var luck: int = 0
-@export var experience: int = 0
-@export var critical_chance: float = 0.0
-@export var level: int = 1
-@export var color: Color = Color(1, 1, 1)
+var _character_data: Dictionary = {
+	'name': null,
+	'class_data': {
+		'name': 'No Class',
+		'description': 'No description available.',
+		'skill_points': 0,
+		'health': 0.0,
+		'attack': 0.0,
+		'defense': 0.0,
+		'speed': 0.0,
+		'magic': 0.0,
+		'luck': 0.0,
+		'experience': 0.0,
+		'critical_chance': 0.0,
+		'level': 1,
+		'color': Color(1, 1, 1),
+	},
+}
+
 
 var _is_turn: bool = false
 
 
 func _on_turn_started(character: Character):
-	if character.name_character == self.name_character:
+	if character._character_data['name'] == self._character_data['name']:
 		if _is_turn: return
 		_is_turn = true
 		_change_color(Color(1, 1, 0))
 	else:
 		_is_turn = false
-		_change_color(color)
+		_change_color(_character_data['class_data']['color'])
 
 
 func initialize_character(class_data: CharacterClassData, name_char: String):
-	if class_data:
-		name_character = name_char
-		name_class = class_data.name
-		description = class_data.description
-		skill_points = class_data.skill_points
-		health = class_data.health
-		attack = class_data.attack
-		defense = class_data.defense
-		speed = class_data.speed
-		magic = class_data.magic
-		luck = class_data.luck
-		experience = class_data.experience
-		critical_chance = class_data.critical_chance
-		level = class_data.level
-		color = class_data.color
-		_change_color(color)
-
+	_character_data['name'] = name_char
+	_character_data['class_data'] = class_data
+	print("Character initialized: " + _character_data['name'])
+	print("Character class data: " + str(_character_data['class_data']))
+	
 
 func _change_color(new_color: Color):
 	if is_instance_valid(get_node("MeshInstance3D")):
@@ -60,3 +53,14 @@ func _change_color(new_color: Color):
 
 func init_signals():
 	TurnManager.turn_started.connect(_on_turn_started)
+
+
+func get_character_data() -> Dictionary:
+	return _character_data
+
+func get_class_data_parameter(parameter: String) -> Variant:
+	if parameter in _character_data['class_data']:
+		return _character_data['class_data'][parameter]
+	else:
+		push_error("Parameter not found in character data class: " + parameter)
+		return null
