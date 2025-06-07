@@ -38,6 +38,8 @@ var enemies: Array[Character] = []
 var _is_attacking: bool = false
 var _index_enemy_attack: int = 0
 
+# TODO -> Implement a system to manage the attack and damage calculation.
+# TODO -> This is a placeholder for the attack logic.
 
 func _input(event):
 	if not _is_turn: return
