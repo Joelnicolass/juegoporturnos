@@ -3,7 +3,7 @@ extends Node
 @export var mage: CharacterClassData
 @export var warrior: CharacterClassData
 
-@onready var character_scene: PackedScene = preload("res://character.tscn")
+@onready var character_scene: PackedScene = preload("res://scenes/character.tscn")
 
 @onready var player_a_position_a: MeshInstance3D = get_owner().get_node('Scenario/PlayerAPositions/A')
 @onready var player_a_position_b: MeshInstance3D = get_owner().get_node('Scenario/PlayerAPositions/B')

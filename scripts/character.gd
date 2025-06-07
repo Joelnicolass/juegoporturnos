@@ -39,8 +39,6 @@ func _on_turn_started(character: Character):
 func initialize_character(class_data: CharacterClassData, name_char: String):
 	_character_data['name'] = name_char
 	_character_data['class_data'] = class_data
-	print("Character initialized: " + _character_data['name'])
-	print("Character class data: " + str(_character_data['class_data']))
 	
 
 func _change_color(new_color: Color):
@@ -57,6 +55,7 @@ func init_signals():
 
 func get_character_data() -> Dictionary:
 	return _character_data
+	
 
 func get_class_data_parameter(parameter: String) -> Variant:
 	if parameter in _character_data['class_data']:
