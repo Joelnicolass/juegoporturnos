@@ -6,13 +6,17 @@ signal camera_started_transition
 signal camera_finished_transition
 
 var transitioning: bool = false
+var _current_camera: Camera3D = null
+
 
 func _ready() -> void:
 	camera3D.current = false
 
+
 func switch_camera(from, to) -> void:
 	from.current = false
 	to.current = true
+
 
 func transition_camera3D(from: Camera3D, to: Camera3D, duration: float = 0.5) -> void:
 	if transitioning: return
@@ -36,4 +40,13 @@ func transition_camera3D(from: Camera3D, to: Camera3D, duration: float = 0.5) ->
 
 	to.current = true
 	transitioning = false
+	_current_camera = to
+
 	camera_finished_transition.emit()
+
+
+func get_current_camera() -> Camera3D:
+	if _current_camera:
+		return _current_camera
+	else:
+		return get_viewport().get_camera_3d()

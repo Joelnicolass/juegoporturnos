@@ -16,3 +16,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_wa5vi")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.98867, 0.150105, 0, -0.150105, 0.98867, 1.7443, 2.08042, 3.09482)
+
+[node name="CameraTargetAttack" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.53371, -3.56536)
