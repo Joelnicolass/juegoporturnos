@@ -3,6 +3,8 @@ class_name Character
 
 @export var character_class_data: CharacterClassData
 
+@onready var menu_attack: Control = $UI/MenuAttack
+
 enum Team {
 	PLAYER,
 	ENEMY
@@ -47,6 +49,7 @@ func _input(event):
 
 	if event is InputEventKey and event.is_pressed() and event.keycode == KEY_A and not _is_attacking:
 		_is_attacking = true
+		menu_attack.visible = true
 
 		enemies = TurnManager.get_battle_characters().filter(func(character: Character) -> bool:
 			return character.get_team() != str(Team.PLAYER)
@@ -90,6 +93,7 @@ func _input(event):
 			1.0
 		)
 		_index_enemy_attack = 0
+		menu_attack.visible = false
 
 
 # --- PUBLIC METHODS --- #
@@ -144,6 +148,7 @@ func _on_turn_started(character: Character):
 
 func _on_turn_ended(_character: Character):
 	if not _is_turn:
+		menu_attack.visible = false
 		_is_attacking = false
 		_index_enemy_attack = 0
 		enemies.clear()

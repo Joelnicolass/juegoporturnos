@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://6lhe7c82egsu"]
+[gd_scene load_steps=11 format=3 uid="uid://6lhe7c82egsu"]
 
 [ext_resource type="Script" uid="uid://cvqsonkshywl6" path="res://scripts/player_spawner.gd" id="1_jyhfs"]
 [ext_resource type="Resource" uid="uid://b5i5q33eji5g8" path="res://classes/mage.tres" id="2_tbgi4"]
@@ -35,6 +35,27 @@ dof_blur_far_enabled = true
 dof_blur_far_distance = 19.06
 dof_blur_near_enabled = true
 dof_blur_near_distance = 4.73
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.439216)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 20
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
 
 [node name="MainScene" type="Node3D"]
 
@@ -160,6 +181,7 @@ offset_right = 19.0
 offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="NextTurn" type="Button" parent="UI/Control"]
 layout_mode = 2
@@ -168,5 +190,18 @@ offset_top = 918.0
 offset_right = 1788.0
 offset_bottom = 1000.0
 text = "SIGUIENTE TURNO"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Control"]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 103.0
+offset_right = 688.0
+offset_bottom = 208.0
+theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_jyhfs")
+text = "MENU DE ATAQUE: A
+SELECCION DE ENEMIGO A ATACAR: <- LEFT y RIGHT ->
+VOLVER A MENU DE PERSONAJE: ESCAPE
+"
 
 [connection signal="pressed" from="UI/Control/NextTurn" to="PlayerSpawner" method="_on_next_turn_pressed"]
